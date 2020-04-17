@@ -41,4 +41,14 @@ object RecFun extends RecFunInterface {
     else if (money == 0) 1
     else countChange(money, coins.tail) + countChange(money - coins.head, coins)
   }
+
+  // Calculate the minimum number of coins required for change
+  def minCountChange(money: Int, coins: List[Int]): Int = {
+    def findMinCountChange(money: Int, acc: Int): Int = {
+      if (money < 0 || coins.isEmpty) Integer.MAX_VALUE
+      else if (money == 0) acc
+      else coins.map(x => findMinCountChange(money - x, acc + 1)).min
+    }
+    findMinCountChange(money, 0)
+  }
 }
